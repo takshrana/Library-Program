@@ -1,13 +1,13 @@
-# import sqlite3
-#
-# db = sqlite3.connect("books-collection.db")
-# cursor = db.cursor()
+import sqlite3
 
-# cursor.execute("create table books (id integer primary key, title varchar(250) NOT NULL,"
-#                "author varchar(250) not null, rating float not null)")
+db = sqlite3.connect("books-collection.db")
+cursor = db.cursor()
 
-# cursor.execute("INSERT INTO books VALUES(1, 'Harry Potter', 'J. K. Rowling', '9.3')")
-# db.commit()
+cursor.execute("create table books (id integer primary key, title varchar(250) NOT NULL,"
+               "author varchar(250) not null, rating float not null)")
+
+cursor.execute("INSERT INTO books VALUES(1, 'Harry Potter', 'J. K. Rowling', '9.3')")
+db.commit()
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -24,17 +24,17 @@ class Books(db.Model):
 
     def __repr__(self):
         return f'<Book {self.name}>'
-#
-# db.create_all()
-#
-# book1= Books(name="Harry Potter", author="J.K. Rowling", rating=9.8)
-# db.session.add(book1)
-# db.session.commit()
 
-# book = Books.query.filter_by(name="Harry Potter").first()
-# book.name = "Harry Potter and The Chamber of Secrets"
-# db.session.commit()
-# print(book)
+db.create_all()
+
+book1= Books(name="Harry Potter", author="J.K. Rowling", rating=9.8)
+db.session.add(book1)
+db.session.commit()
+
+book = Books.query.filter_by(name="Harry Potter").first()
+book.name = "Harry Potter and The Chamber of Secrets"
+db.session.commit()
+print(book)
 
 delete_boook = Books.query.get(1)
 db.session.delete(delete_boook)
